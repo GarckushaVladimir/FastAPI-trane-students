@@ -1,10 +1,11 @@
-from studentModel import Student
+from studentModel import SStudent
 from pydantic import ValidationError
 from datetime import date
 
+
 def test_valid_student(data: dict) -> None:
     try:
-        student = Student(**data)
+        student = SStudent(**data)
         print(student)
     except ValidationError as e:
         print(f"Error of validation: {e}")

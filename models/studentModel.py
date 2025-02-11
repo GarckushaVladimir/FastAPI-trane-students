@@ -14,7 +14,7 @@ class Major(str, Enum):
     languages = "Языки"
 
 
-class Student(BaseModel):
+class SStudent(BaseModel):
     student_id: int
     phone_number: str = Field(default=..., description="Номер телефона в международном формате, начинающийся с '+'")
     first_name: str = Field(default=..., min_length=1, max_length=50, description="Имя студента, от 1 до 50 символов")
