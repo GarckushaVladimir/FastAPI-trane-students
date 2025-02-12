@@ -1,7 +1,7 @@
 from enum import Enum
 from pydantic import BaseModel, EmailStr, Field, field_validator, ValidationError
 from datetime import date, datetime
-from typing import Optional
+from typing import Optional, Any
 import re
 
 
@@ -34,12 +34,26 @@ class SStudent(BaseModel):
     @classmethod
     def validate_phone_number(cls, values: str) -> str:
         if not re.match(r'^\+\d{1,15}$', values):
-            raise ValidationError('Номер телефона должен начинаться с "+" и содержать от 1 до 15 цифр')
+            raise ValueError('Номер телефона должен начинаться с "+" и содержать от 1 до 15 цифр')
         return values
 
     @field_validator("date_of_birth")
     @classmethod
     def validate_date_of_birth(cls, values: date):
         if values and values >= datetime.now().date():
-            raise ValidationError('Дата рождения должна быть в прошлом')
+            raise ValueError('Дата рождения должна быть в прошлом')
         return values
+
+
+class SUpdateFilter(BaseModel):
+    student_id: int
+
+
+class SStudentUpdate(BaseModel):
+    course: int = Field(..., ge=1, le=5, description="Курс должен быть в диапазоне от 1 до 5")
+    major: Optional[Major] = Field(..., description="Специальность студента")
+
+
+class SDeleteFilter(BaseModel):
+    key: str
+    value: Any
