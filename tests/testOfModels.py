@@ -1,4 +1,4 @@
-from studentModel import SStudent
+from app.students.models import SStudent
 from pydantic import ValidationError
 from datetime import date
 
