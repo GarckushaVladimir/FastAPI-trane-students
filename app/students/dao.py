@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
 from app.database import async_session_maker
-from app.students.models import Student, Major
+from app.students.models import Student
 from app.dao.base import BaseDAO
 
 
@@ -20,6 +20,6 @@ class StudentDAO(BaseDAO):
                 return None
 
             student_data = student_info.to_dict()
-            student_data["major"] = student_info.major.major_name
+            student_data["majors"] = student_info.major.major_name
 
             return student_data

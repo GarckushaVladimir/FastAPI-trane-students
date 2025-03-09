@@ -10,10 +10,12 @@ from alembic import context
 import sys
 from os.path import dirname, abspath
 
+from app.database import DATABASE_URL, Base
+from app.students.models import Student
+from app.majors.models import Major
+
 sys.path.insert(0, dirname(abspath(__file__)))
 
-from app.database import DATABASE_URL, Base
-from app.students.models import Student, Major
 
 config = context.config
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
